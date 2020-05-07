@@ -58,7 +58,7 @@ node ("cicd_vm") {
             "*Current run url* ${env.BUILD_URL}\n\n" +
             "*Successful job list*\n${success_job_list}\n\n" +
             "*Failed job list*\n${failure_job_list}\n\n",
-            subject: "Pipeline Nightly regression", to: 'jack.pao@memverge.com'
+            subject: "Pipeline Compatibility test", to: 'jack.pao@memverge.com'
     }
 
 }
