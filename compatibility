@@ -4,7 +4,7 @@ install_tests = ["run_all"]
 failure_job_list = []
 success_job_list = []
 node ("cicd_vm") {
-    currentBuild.displayName = "#${BUILD_NUMBER} ${BUILD_LABEL}"
+    currentBuild.displayName = "#${BUILD_NUMBER} ${OS_VER} ${HOSTS_DAX_MAP}"
     currentBuild.result = 'SUCCESS'
    try{
        stage ("Nightly Install test suite")
