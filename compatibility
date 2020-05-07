@@ -1,0 +1,156 @@
+snapshot_tests = ["run_redis_snapshot_functional_test","run_kdb_snapshot_functional_test"]
+mvmcli_tests = ["mvmcliBasicWorkFlows"]
+install_tests = ["run_all"]
+failure_job_list = []
+success_job_list = []
+node ("cicd_vm") {
+    currentBuild.displayName = "#${BUILD_NUMBER} ${BUILD_LABEL}"
+    currentBuild.result = 'SUCCESS'
+   try{
+       stage ("Nightly Install test suite")
+        {
+            b0_result = 'SUCCESSFUL'
+            install_suite_all(install_tests)
+            if(b0_result == 'FAILURE') {
+                echo "Stage failed"
+                sh "echo Stage failed;exit 1"
+            }
+         }
+    }
+    catch (e){
+        echo e.getMessage()
+        currentBuild.result = 'UNSTABLE'
+    }
+   try{
+       stage ("Nightly Snopshot test suite")
+        {
+            b1_result = 'SUCCESSFUL'
+            snapshot_suite_all(snapshot_tests)
+            if(b1_result == 'FAILURE') {
+                echo "Stage failed"
+                sh "echo Stage failed;exit 1"
+            }
+         }
+    }
+    catch (e){
+        echo e.getMessage()
+        currentBuild.result = 'UNSTABLE'
+    }
+   try{
+       stage ("Nightly MVMCLI workflow")
+        {
+            b2_result = 'SUCCESSFUL'
+            mvmcli_suite_all(mvmcli_tests)
+            if(b2_result == 'FAILURE') {
+                echo "Stage failed"
+                sh "echo Stage failed;exit 1"
+            }
+        }
+    }
+    catch (e){
+        echo e.getMessage()
+        currentBuild.result = 'UNSTABLE'
+    }
+    finally {
+            emailext body:
+            "*Pipline status*: ${currentBuild.result}\n\n" +
+            "*Pipeline run overview* ${env.JOB_URL} \n\n" +
+            "*Current run url* ${env.BUILD_URL}\n\n" +
+            "*Successful job list*\n${success_job_list}\n\n" +
+            "*Failed job list*\n${failure_job_list}\n\n",
+            subject: "Pipeline Nightly regression", to: 'jack.pao@memverge.com'
+            if(currentBuild.result == 'UNSTABLE')
+                sh ''' 
+                curl -X POST -H 'Content-type: application/json' --data '{"text":"Nightly regression status *UNSTABLE* https://104.184.156.164:8888/view/Pipeline_view/job/Pipeline_nightly_regression/"}' \
+                https://hooks.slack.com/services/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
+                '''
+            else
+                sh ''' 
+                curl -X POST -H 'Content-type: application/json' --data '{"text":"Nightly regression status *SUCCESS* https://104.184.156.164:8888/view/Pipeline_view/job/Pipeline_nightly_regression/"}' \
+                https://hooks.slack.com/services/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
+                '''               
+    }
+
+}
+
+def snapshot_suite_all(list) {
+    for (int i = 0; i < list.size(); i++) {
+           echo "Test: ${list[i]}"
+           b1 = build job: "pipeline_mvmalloc_nightly_test", propagate: false, parameters: [string(name: "BUILD_LABEL", value: "Nightly regression ${list[i]}"),
+           string(name: "HOSTS_DAX_MAP", value: "kimber.eng.memverge.com=/dev/dax0.1"),
+           string(name: "MV_TESTS", value: "${list[i]}"),
+           string(name: "USER_PW", value: "mvtest321"), string(name: "NUMBER_SERVER", value: "5"),
+           string(name: "DB_PER_SERVER", value: "10"), string(name: "RECORD_PER_DB", value: "1000000"),
+           string(name: "BUILD_LOCATION", value: "${BUILD_DIR}/${BUILD_DATE}/mvmm.tgz"),
+           string(name: "SNAPSHOT_DEPTH", value: "5"), booleanParam(name: "SKIP_NUMA_CTL", value: true),
+           string(name: "SNAPSHOT_WIDTH", value: "5"), string(name: "KX_HOME", value: "/memverge/automation/KX_KIMBER/l64"),
+           string(name: "MVTEST_BRANCH", value: "${MVTEST_BRANCH}"),
+           booleanParam(name: "TCMS_DRY_RUN", value: false), booleanParam(name: "TCMS_TRACE", value: false)]
+           try{
+                if(b1.result == 'FAILURE') {
+                    echo "${list[i]} job failed"
+                    failure_job_list.add("${list[i]}: ${b1.absoluteUrl} \n")
+                    b1_result = 'FAILURE'
+                    sh "echo ${list[i]} job failed; exit 1"
+                }
+                else{
+                    success_job_list.add("${list[i]}: ${b1.absoluteUrl} \n")
+                }
+            }
+            catch (e){
+                echo e.getMessage()
+            }
+    }
+}
+
+def mvmcli_suite_all(list){
+    for (int i = 0; i < list.size(); i++) {
+           echo "Test: ${list[i]}"
+           b2 = build job: "pipeline_mvmalloc_nightly_mvmcli", propagate: false, parameters: [string(name: "BUILD_LABEL", value: "Nightly regression ${list[i]}"), 
+           string(name: "BUILD_DIR", value: "${BUILD_DIR}"), string(name: "BUILD_DATE", value: "${BUILD_DATE}"), 
+           string(name: "TEST_SUITE", value: "${list[i]}"), string(name: "KX_HOME", value: "/memverge/automation/q/l64"), 
+           string(name: "HOSTS_DAX_MAP", value: "10.0.1.183=/dev/dax0.0,/dev/dax1.0"), string(name: "MVTEST_BRANCH", value: "${MVTEST_BRANCH}"), 
+           booleanParam(name: "TCMS_DRY_RUN", value: false), booleanParam(name: "TCMS_TRACE", value: false),
+           booleanParam(name: 'Exclude_Host_Reboot', value: true)]
+           try{
+                if(b2.result == 'FAILURE') {
+                    echo "${list[i]} job failed"
+                    failure_job_list.add("${list[i]}: ${b2.absoluteUrl} \n")
+                    b2_result = 'FAILURE'
+                    sh "echo ${list[i]} job failed; exit 1"
+                }
+                else{
+                    success_job_list.add("${list[i]}: ${b2.absoluteUrl} \n")
+                }
+            }
+            catch (e){
+                echo e.getMessage()
+            }
+        
+    }    
+}
+def install_suite_all(list){
+    for (int i = 0; i < list.size(); i++) {
+           echo "Test: ${list[i]}"
+           b0 = build job: 'pipeline_mvmalloc_nightly_install', parameters: [string(name: 'BUILD_LABEL', value: 'Nightly regression'), 
+           string(name: 'BUILD_LOCATION', value: "${BUILD_DIR}/${BUILD_DATE}/mvmm.tgz"), 
+           string(name: 'TEST_SUITE', value: "${list[i]}"), string(name: 'HOSTS_DAX_MAP', value: '10.0.1.165=/dev/dax0.0,/dev/dax1.0'), 
+           string(name: 'USER_PW', value: 'memverge'), booleanParam(name: 'SKIP_NUMA_CTL', value: true), 
+           booleanParam(name: 'FORCE_CLEANUP', value: true), string(name: 'MVTEST_BRANCH', value: 'master'), 
+           booleanParam(name: 'TCMS_DRY_RUN', value: false), booleanParam(name: 'TCMS_TRACE', value: false)]
+            try{
+                if(b0.result == 'FAILURE') {
+                    echo "${list[i]} job failed"
+                    failure_job_list.add("${list[i]}: ${b0.absoluteUrl} \n")
+                    b0_result = 'FAILURE'
+                    sh "echo ${list[i]} job failed; exit 1"
+                }
+                else{
+                    success_job_list.add("${list[i]}: ${b0.absoluteUrl} \n")
+                }
+            }
+            catch (e){
+                echo e.getMessage()
+            }
+    }    
+}
