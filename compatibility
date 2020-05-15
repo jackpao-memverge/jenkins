@@ -71,7 +71,7 @@ def snapshot_suite_all(list) {
            string(name: "MV_TESTS", value: "${list[i]}"),
            string(name: "USER_PW", value: "memverge"), string(name: "NUMBER_SERVER", value: "1"),
            string(name: "DB_PER_SERVER", value: "5"), string(name: "RECORD_PER_DB", value: "1000000"),
-           string(name: "BUILD_LOCATION", value: "${BUILD_DIR}/${BUILD_DATE}/mvmm.tgz"),
+           string(name: "BUILD_LOCATION", value: "${BUILD_DIR}/${RHEL_VER}/${BUILD_DATE}/mvmm*x86_64.tgz"),
            string(name: "SNAPSHOT_DEPTH", value: "5"), booleanParam(name: "SKIP_NUMA_CTL", value: true),
            string(name: "SNAPSHOT_WIDTH", value: "5"), string(name: "KX_HOME", value: "/memverge/automation/q/l64"),
            string(name: "MVTEST_BRANCH", value: "${MVTEST_BRANCH}"),
@@ -97,9 +97,10 @@ def mvmcli_suite_all(list){
     for (int i = 0; i < list.size(); i++) {
            echo "Test: ${list[i]}"
            b2 = build job: "pipeline_mvmalloc_nightly_mvmcli", propagate: false, parameters: [string(name: "BUILD_LABEL", value: "Nightly regression ${list[i]}"), 
-           string(name: "BUILD_DIR", value: "${BUILD_DIR}"), string(name: "BUILD_DATE", value: "${BUILD_DATE}"), 
+           string(name: "BUILD_DIR", value: "${BUILD_DIR}/${RHEL_VER}"), string(name: "BUILD_DATE", value: "${BUILD_DATE}"), 
            string(name: "TEST_SUITE", value: "${list[i]}"), string(name: "KX_HOME", value: "/memverge/automation/q/l64"), 
            string(name: "HOSTS_DAX_MAP", value: "${HOSTS_DAX_MAP}"), string(name: "MVTEST_BRANCH", value: "${MVTEST_BRANCH}"), 
+           string(name: "BUILD_PACKAGE_NAME", value: "mvmm*x86_64.tgz"),
            booleanParam(name: "TCMS_DRY_RUN", value: false), booleanParam(name: "TCMS_TRACE", value: false),
            booleanParam(name: 'Exclude_Host_Reboot', value: true)]
            try{
@@ -123,7 +124,7 @@ def install_suite_all(list){
     for (int i = 0; i < list.size(); i++) {
            echo "Test: ${list[i]}"
            b0 = build job: 'pipeline_mvmalloc_nightly_install', parameters: [string(name: 'BUILD_LABEL', value: 'Nightly regression'), 
-           string(name: 'BUILD_LOCATION', value: "${BUILD_DIR}/${BUILD_DATE}/mvmm.tgz"), 
+           string(name: 'BUILD_LOCATION', value: "${BUILD_DIR}/${RHEL_VER}/${BUILD_DATE}/mvmm*x86_64.tgz"), 
            string(name: 'TEST_SUITE', value: "${list[i]}"), string(name: 'HOSTS_DAX_MAP', value: "${HOSTS_DAX_MAP}"), 
            string(name: 'USER_PW', value: 'memverge'), booleanParam(name: 'SKIP_NUMA_CTL', value: true), 
            booleanParam(name: 'FORCE_CLEANUP', value: true), string(name: 'MVTEST_BRANCH', value: 'master'), 
