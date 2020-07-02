@@ -1,4 +1,4 @@
-snapshot_tests = ["run_redis_snapshot_functional_test","run_kdb_snapshot_functional_test"]
+snapshot_tests = ["run_redis_snapshot_functional_test","run_kdb_snapshot_functional_test","redis_deep_snapshot_test","redis_wide_snapshot_test","kx_deep_snapshot_test","kx_wide_snapshot_test"]
 mvmcli_tests = ["mvmcliBasicWorkFlows"]
 install_tests = ["run_all"]
 failure_job_list = []
@@ -36,7 +36,7 @@ node ("cicd_vm") {
         echo e.getMessage()
         currentBuild.result = 'UNSTABLE'
     }
-   try{
+/*   try{
        stage ("Nightly MVMCLI workflow")
         {
             b2_result = 'SUCCESSFUL'
@@ -51,6 +51,8 @@ node ("cicd_vm") {
         echo e.getMessage()
         currentBuild.result = 'UNSTABLE'
     }
+ */
+ 
     finally {
             emailext body:
             "*Pipline status*: ${currentBuild.result}\n\n" +
