@@ -37,7 +37,7 @@ node ("cicd_vm") {
         echo e.getMessage()
         currentBuild.result = 'UNSTABLE'
     }
-/*   try{
+   try{
        stage ("Nightly MVMCLI workflow")
         {
             b2_result = 'SUCCESSFUL'
@@ -52,7 +52,7 @@ node ("cicd_vm") {
         echo e.getMessage()
         currentBuild.result = 'UNSTABLE'
     }
- */
+ 
  
     finally {
             emailext body:
