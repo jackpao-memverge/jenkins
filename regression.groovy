@@ -114,7 +114,7 @@ def snapshot_suite_all(list) {
            booleanParam(name: "TCMS_DRY_RUN", value: false), booleanParam(name: "TCMS_TRACE", value: false),
            booleanParam(name: 'start_mvmallocd_service', value: true)]
            try{
-                if(b1.result == 'FAILURE'|| b1.result == 'ABORTED') {
+                if(b1.result == 'FAILURE') {
                     echo "${list[i]} job failed"
                     failure_job_list.add("${list[i]}: ${b1.absoluteUrl} \n")
                     b1_result = 'FAILURE'
@@ -149,7 +149,7 @@ def snapshot_suite_all_huge(list) {
            booleanParam(name: 'HugePageDram', value: true), booleanParam(name: 'RegularDram', value: false), string(name: 'DramCacheGB', value: '5'),
            booleanParam(name: 'start_mvmallocd_service', value: true)]
            try{
-                if(b1.result == 'FAILURE'|| b1.result == 'ABORTED') {
+                if(b1.result == 'FAILURE') {
                     echo "${list[i]} job failed"
                     failure_job_list.add("${list[i]}: ${b1.absoluteUrl} \n")
                     b1_result = 'FAILURE'
@@ -184,7 +184,7 @@ def snapshot_suite_all_regular(list) {
            booleanParam(name: 'HugePageDram', value: false), booleanParam(name: 'RegularDram', value: true), string(name: 'DramCacheGB', value: '5'),
            booleanParam(name: 'start_mvmallocd_service', value: true)]
            try{
-                if(b1.result == 'FAILURE'|| b1.result == 'ABORTED') {
+                if(b1.result == 'FAILURE') {
                     echo "${list[i]} job failed"
                     failure_job_list.add("${list[i]}: ${b1.absoluteUrl} \n")
                     b1_result = 'FAILURE'
@@ -211,7 +211,7 @@ def mvmcli_suite_all(list){
            booleanParam(name: "TCMS_DRY_RUN", value: false), booleanParam(name: "TCMS_TRACE", value: false),
            booleanParam(name: 'Exclude_Host_Reboot', value: true)]
            try{
-                if(b1.result == 'FAILURE'|| b1.result == 'ABORTED') {
+                if(b1.result == 'FAILURE') {
                     echo "${list[i]} job failed"
                     failure_job_list.add("${list[i]}: ${b2.absoluteUrl} \n")
                     b2_result = 'FAILURE'
@@ -237,7 +237,7 @@ def install_suite_all(list){
            booleanParam(name: 'FORCE_CLEANUP', value: true), string(name: 'MVTEST_BRANCH', value: 'master'), 
            booleanParam(name: 'TCMS_DRY_RUN', value: false), booleanParam(name: 'TCMS_TRACE', value: false)]
             try{
-                if(b1.result == 'FAILURE'|| b1.result == 'ABORTED') {
+                if(b1.result == 'FAILURE') {
                     echo "${list[i]} job failed"
                     failure_job_list.add("${list[i]}: ${b0.absoluteUrl} \n")
                     b0_result = 'FAILURE'
