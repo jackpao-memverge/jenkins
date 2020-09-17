@@ -1,6 +1,6 @@
 //"kx_insert_performance_test" 
 //snapshot_tests = ["redis_deep_snapshot_test","redis_wide_snapshot_test","kx_deep_snapshot_test","kx_wide_snapshot_test","run_redis_snapshot_functional_test","run_kdb_snapshot_functional_test","snapshot_with_load_in_bg_test","mixed_apps_test"]
-snapshot_tests = ["run_redis_snapshot_functional_test","run_kdb_snapshot_functional_test"]
+snapshot_tests = ["run_redis_snapshot_functional_test","run_kdb_snapshot_functional_test","redis_deep_snapshot_test","redis_wide_snapshot_test","kx_deep_snapshot_test","kx_wide_snapshot_test"]
 mvmcli_tests = ["mvmcliBasicWorkFlows"]
 //install_tests = ["run_all"]
 install_tests = ["test_fresh_install"]
