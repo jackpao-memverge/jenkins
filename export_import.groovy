@@ -50,7 +50,7 @@ def export_import(list, param) {
                 string(name: "SNAPSHOT_WIDTH", value: "10"), string(name: "KX_HOME", value: "${KX_HOME}"), 
                 string(name: "MVTEST_BRANCH", value: "master"), booleanParam(name: "TCMS_DRY_RUN", value: false), 
                 booleanParam(name: "TCMS_TRACE", value: true), booleanParam(name: "TCMS_UPLOAD", value: true), 
-                string(name: "DEBUG_BINARIES_PATH", value: "${DEBUG_BINARIES_PATH}"), booleanParam(name: "SNAP_PERF_TO_DASHBOARD", value: false), 
+                string(name: "DEBUG_BINARIES_PATH", value: ""), booleanParam(name: "SNAP_PERF_TO_DASHBOARD", value: false), 
                 string(name: "CPU_NODE_BIND", value: "1"), booleanParam(name: "start_mvmallocd_service", value: true), 
                 string(name: "DramCacheGB", value: "3"), booleanParam(name: "HugePageDram", value: false),
                 booleanParam(name: "RegularDram", value: false), string(name: "HOST_DAX_MAP_REMOTE", value: "${HOST_DAX_MAP_REMOTE}"), 
