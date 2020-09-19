@@ -44,7 +44,7 @@ def export_import(list, param) {
         echo "Test: ${list[i]}"
             for (int j = 0; j < param.size(); j++) {
                 echo "start app with none sudo: ${param[j]}"
-                b1 =  build job: "test_export_import", parameters: [string(name: "BUILD_LABEL", value: "${BUILD_LABEL}-mmuser:${param[j]}"), 
+                b1 =  build job: "test_export_import", propagate: false, parameters: [string(name: "BUILD_LABEL", value: "${BUILD_LABEL}-mmuser:${param[j]}"), 
                 string(name: "HOSTS_DAX_MAP", value: "${HOSTS_DAX_MAP}"), 
                 string(name: "MV_TESTS", value: "${list[i]}"), 
                 string(name: "USER_PW", value: "${USER_PW}"), string(name: "NUMBER_SERVER", value: "10"), 
