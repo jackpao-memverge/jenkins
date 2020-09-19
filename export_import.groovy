@@ -5,7 +5,11 @@ export_import_tests = [
     "run_export_import_kdb_functional_test_local",
     "run_export_import_kdb_functional_test_remote",
     "run_export_import_kdb_wide_test_local",
-    "run_export_import_kdb_wide_test_remote"
+    "run_export_import_kdb_wide_test_remote",
+    "run_export_import_kdb_functional_test_remote_bg_load",
+    "run_export_import_kdb_functional_test_remote_bg_kdb_load",
+    "kx_deep_snapshot_test_with_export",
+    "redis_deep_snapshot_test_with_export"
 ]
 nonsudo = [ false, true ]
 
@@ -40,7 +44,7 @@ def export_import(list, param) {
         echo "Test: ${list[i]}"
             for (int j = 0; j < param.size(); j++) {
                 echo "start app with none sudo: ${param[j]}"
-                b1 =  build job: "test_export_import", parameters: [string(name: "BUILD_LABEL", value: "${BUILD_LABEL}"), 
+                b1 =  build job: "test_export_import", parameters: [string(name: "BUILD_LABEL", value: "${BUILD_LABEL}-mmuser:${param[j]}"), 
                 string(name: "HOSTS_DAX_MAP", value: "${HOSTS_DAX_MAP}"), 
                 string(name: "MV_TESTS", value: "${list[i]}"), 
                 string(name: "USER_PW", value: "${USER_PW}"), string(name: "NUMBER_SERVER", value: "10"), 
