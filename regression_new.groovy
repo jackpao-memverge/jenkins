@@ -387,7 +387,7 @@ def test_export_import(list){
         string(name: "MV_TESTS", value: "${list[i]}"), string(name: "USER_PW", value: "memverge"), 
         string(name: "NUMBER_SERVER", value: "5"), string(name: "DB_PER_SERVER", value: "5"), 
         string(name: "RECORD_PER_DB", value: "1000000"), 
-        string(name: "BUILD_LOCATION", value: "${BUILD_DIR}/rhel8/${BUILD_DATE}/${pkg_name}"), 
+        string(name: "BUILD_LOCATION", value: "${BUILD_DIR}/${RHEL_VER}/${BUILD_DATE}/${pkg_name}"), 
         string(name: "SNAPSHOT_DEPTH", value: "7"), booleanParam(name: "SKIP_NUMA_CTL", value: true), 
         string(name: "SNAPSHOT_WIDTH", value: "7"), 
         string(name: "KX_HOME", value: "/memverge/automation/q/l64"), string(name: "MVTEST_BRANCH", value: "master"), 
