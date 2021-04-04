@@ -457,7 +457,7 @@ def snapshot_suite_all_mm_bin(list) {
            string(name: "SNAPSHOT_DEPTH", value: "5"), booleanParam(name: "SKIP_NUMA_CTL", value: true),
            string(name: "SNAPSHOT_WIDTH", value: "5"), string(name: "KX_HOME", value: "/memverge/automation/KX_MISSIONB/l64"),
            string(name: "MVTEST_BRANCH", value: "${MVTEST_BRANCH}"),
-           string(name: "MM_INSTALL_BIN", value: "${mm_install_path}"),
+           string(name: "MM_INSTALL_BIN", value: "/memverge/home/mvm/memory_machine_nightly/master/latest/MemoryMachine-*-${RHEL_VER}.RELEASE.bin"),
            booleanParam(name: "TCMS_DRY_RUN", value: false), booleanParam(name: "TCMS_TRACE", value: false),
            booleanParam(name: 'HugePageDram', value: false), booleanParam(name: 'RegularDram', value: true), string(name: 'DramCacheGB', value: '5')]
            try{
