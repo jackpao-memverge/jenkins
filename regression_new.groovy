@@ -198,6 +198,7 @@ def snapshot_suite_all(list) {
            string(name: "SNAPSHOT_DEPTH", value: "5"), booleanParam(name: "SKIP_NUMA_CTL", value: true),
            string(name: "SNAPSHOT_WIDTH", value: "5"), string(name: "KX_HOME", value: "/memverge/automation/KX_MISSIONB/l64"),
            string(name: "MVTEST_BRANCH", value: "${MVTEST_BRANCH}"),
+           string(name: 'AccessDetector', value: "${AccessDetector}"),              
            booleanParam(name: "TCMS_DRY_RUN", value: false), booleanParam(name: "TCMS_TRACE", value: false)]
            try{
                if(b1.result == 'FAILURE'|| b1.result == 'ABORTED') {
@@ -234,6 +235,7 @@ def snapshot_suite_all_huge(list) {
            string(name: "MVTEST_BRANCH", value: "${MVTEST_BRANCH}"),
            booleanParam(name: "TCMS_DRY_RUN", value: false), booleanParam(name: "TCMS_TRACE", value: false),
            booleanParam(name: 'HugePageDram', value: true), booleanParam(name: 'RegularDram', value: false), string(name: 'DramCacheGB', value: '5'),
+           string(name: 'AccessDetector', value: "${AccessDetector}"),                                                                           
            booleanParam(name: 'start_mvmallocd_service', value: true)]
            try{
                 if(b1.result == 'FAILURE'|| b1.result == 'ABORTED') {
@@ -269,6 +271,7 @@ def snapshot_suite_all_regular(list) {
            string(name: "SNAPSHOT_WIDTH", value: "5"), string(name: "KX_HOME", value: "/memverge/automation/KX_MISSIONB/l64"),
            string(name: "MVTEST_BRANCH", value: "${MVTEST_BRANCH}"),
            booleanParam(name: "TCMS_DRY_RUN", value: false), booleanParam(name: "TCMS_TRACE", value: false),
+           string(name: 'AccessDetector', value: "${AccessDetector}"),
            booleanParam(name: 'HugePageDram', value: false), booleanParam(name: 'RegularDram', value: true), string(name: 'DramCacheGB', value: '5')]
            try{
                 if(b1.result == 'FAILURE'|| b1.result == 'ABORTED') {
@@ -305,6 +308,7 @@ def snapshot_suite_all_mvsnapd(list) {
            string(name: "MVTEST_BRANCH", value: "${MVTEST_BRANCH}"),
            booleanParam(name: "TCMS_DRY_RUN", value: false), booleanParam(name: "TCMS_TRACE", value: false),
            booleanParam(name: 'start_mvmallocd_service', value: true),
+           string(name: 'AccessDetector', value: "${AccessDetector}"),
            booleanParam(name: 'mvsnapd_service', value: true)]
            try{
                if(b1.result == 'FAILURE'|| b1.result == 'ABORTED') {
