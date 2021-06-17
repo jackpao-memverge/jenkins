@@ -140,18 +140,7 @@ node ("cicd_vm") {
             "*Current run url* ${env.BUILD_URL}\n\n",
             subject: "Pipeline ubuntu Nightly Build", to: 'jack.pao@memverge.com'
             if("${SLACK_NOTIFICATION}" == 'true'){
-              if(currentBuild.result == 'FAILURE')
-                  sh '''
-                  curl -X POST -H 'Content-type: application/json' --data '{"text":"Nightly build status--master *FAILURE* https://104.184.156.164:8888/view/Pipeline_view/job/Pipeline_master\nChangelog: http://niles.eng.memverge.com/automation/changelog/master/mvmalloc_changelog http://niles.eng.memverge.com/automation/changelog/master/mvcriu_changelog"}' \
-                  https://hooks.slack.com/services/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/xxx;
-
-                  '''
-              else
-                  sh '''
-                  curl -X POST -H 'Content-type: application/json' --data '{"text":"Nightly build status--master *SUCCESS* https://104.184.156.164:8888/view/Pipeline_view/job/Pipeline_master\nChangelog: http://niles.eng.memverge.com/automation/changelog/master/mvmalloc_changelog http://niles.eng.memverge.com/automation/changelog/master/mvcriu_changelog"}' \
-                  https://hooks.slack.com/services/T768GRL82/B01A5DJ2D7Z/dpVnbhpKiIJBNQih1vM0ZJB/xxxJ;
-
-                  '''
+             
 
             }
    }
