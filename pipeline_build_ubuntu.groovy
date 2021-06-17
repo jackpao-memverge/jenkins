@@ -27,7 +27,7 @@ node ("cicd_vm") {
        {
            build job: "pipeline_mvmalloc_nightly_test", parameters: [string(name: "BUILD_LABEL", value: "basic redis snapshot test"),
         //   string(name: "HOSTS_DAX_MAP", value: "kimber.eng.memverge.com=/dev/dax0.1"),
-           string(name: "HOSTS_DAX_MAP", value: "10.0.1.196=/dev/dax0.0,/dev/dax1.0"),
+           string(name: "HOSTS_DAX_MAP", value: "${HOSTS_DAX_MAP}"),
            string(name: "MV_TESTS", value: "run_redis_snapshot_functional_test"),
          //  string(name: "USER_PW", value: "mvtest321"), string(name: "NUMBER_SERVER", value: "1"),
            string(name: "USER_PW", value: "memverge"), string(name: "NUMBER_SERVER", value: "1"),
@@ -78,7 +78,7 @@ node ("cicd_vm") {
        {
            build job: "pipeline_mvmalloc_nightly_test", parameters: [string(name: "BUILD_LABEL", value: "basic redis snapshot test"),
         //   string(name: "HOSTS_DAX_MAP", value: "kimber.eng.memverge.com=/dev/dax0.1"),
-           string(name: "HOSTS_DAX_MAP", value: "10.0.1.196=/dev/dax0.0,/dev/dax1.0"),
+           string(name: "HOSTS_DAX_MAP", value: "${HOSTS_DAX_MAP}"),
            string(name: "MV_TESTS", value: "run_redis_snapshot_functional_test"),
          //  string(name: "USER_PW", value: "mvtest321"), string(name: "NUMBER_SERVER", value: "1"),
            string(name: "USER_PW", value: "memverge"), string(name: "NUMBER_SERVER", value: "1"),
@@ -113,7 +113,7 @@ node ("cicd_vm") {
        {
             build job: "pipeline_mvmalloc_nightly_mvmcli", parameters: [string(name: "BUILD_LABEL", value: "mvmcli"), string(name: "BUILD_DIR",
             value: "/memverge/automation/ubuntu/${BUILD_LABEL}_tmp/${RHEL_VER}"), string(name: "BUILD_DATE", value: "*"), string(name: "TEST_SUITE", value: "basic"),
-            string(name: "KX_HOME", value: "/memverge/automation/q/l64"),string(name: 'HOSTS_DAX_MAP', value: '10.0.0.101=/dev/dax0.0,/dev/dax1.0'),
+            string(name: "KX_HOME", value: "/memverge/automation/q/l64"),string(name: "HOSTS_DAX_MAP", value: "${HOSTS_DAX_MAP}"),
             string(name: "MVTEST_BRANCH", value: "${MVTEST_BRANCH}"), string(name: "BUILD_PACKAGE_NAME", value: "${pkg_name}"),
             booleanParam(name: 'TCMS_DRY_RUN', value: false), booleanParam(name: 'TCMS_TRACE', value: false)]
         }
