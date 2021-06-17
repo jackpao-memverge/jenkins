@@ -3,16 +3,17 @@ node ("cicd_vm") {
    currentBuild.displayName = "#${BUILD_NUMBER} ${BUILD_LABEL}"
    currentBuild.result = 'SUCCESS'
    try{
+       if("${SKIP_BUILD}" == 'false'){
+         stage ("Compile mvcriu and mvmalloc ${BUILD_LABEL} branch")
+         {
+            //build job: "pipeline_nightly_build_stage", parameters: [string(name: "build_branch", value: "${BUILD_LABEL}")]
 
-       stage ("Compile mvcriu and mvmalloc ${BUILD_LABEL} branch")
-       {
-          //build job: "pipeline_nightly_build_stage", parameters: [string(name: "build_branch", value: "${BUILD_LABEL}")]
+                 echo "ubuntu build"
+                 build job: "pipeline_nightly_build_ubuntu", parameters: [string(name: "build_branch", value: "${BUILD_LABEL}"),
+                 [$class: "LabelParameterValue", name: "node", label: "ubuntu"], string(name: "RHEL_VER", value: "${RHEL_VER}"),
+                 string(name: "Pipeline_name", value: "Pipeline_master"), string(name: 'criu_branch', value: "${criu_branch}")]
 
-               echo "ubuntu build"
-               build job: "pipeline_nightly_build_ubuntu", parameters: [string(name: "build_branch", value: "${BUILD_LABEL}"),
-               [$class: "LabelParameterValue", name: "node", label: "ubuntu"], string(name: "RHEL_VER", value: "${RHEL_VER}"),
-               string(name: "Pipeline_name", value: "Pipeline_master"), string(name: 'criu_branch', value: "${criu_branch}")]
-
+         }
        }
        //stage ("Install basic workflow test")
        //{
