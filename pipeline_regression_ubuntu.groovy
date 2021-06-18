@@ -174,7 +174,7 @@ node ("cicd_vm") {
     }
     finally {
             if("${SLACK_NOTIFICATION}" == 'true'){
-                sh String.format(slack_notification, "${BUILD_LOCATION}", success_job_list, failure_job_list, "${SLACK_WEBHOOK_URL}")
+                sh String.format(slack_notification, "${BUILD_DIR}", success_job_list, failure_job_list, "${SLACK_WEBHOOK_URL}")
             }
     }
 
