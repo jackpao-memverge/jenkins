@@ -400,7 +400,7 @@ def install_suite_all(list){
            string(name: 'BUILD_LOCATION', value: "${BUILD_DIR}/${RHEL_VER}/${BUILD_DATE}/${pkg_name}"), 
            string(name: 'TEST_SUITE', value: "${list[i]}"), string(name: 'HOSTS_DAX_MAP', value:  "${HOSTS_DAX_MAP}"), 
            string(name: 'USER_PW', value: 'memverge'), booleanParam(name: 'SKIP_NUMA_CTL', value: true), 
-           booleanParam(name: 'FORCE_CLEANUP', value: true), string(name: 'MVTEST_BRANCH', value: 'master'), 
+           booleanParam(name: 'FORCE_CLEANUP', value: true), string(name: 'MVTEST_BRANCH', value: 'ubuntu'), 
            booleanParam(name: 'TCMS_DRY_RUN', value: false), booleanParam(name: 'TCMS_TRACE', value: false)]
             try{
                 if(b0.result == 'FAILURE'|| b0.result == 'ABORTED') {
