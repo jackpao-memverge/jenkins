@@ -188,11 +188,13 @@ def snapshot_suite_all(list) {
                kx_home = "/memverge/automation/KX/l64"
                num_server = 10
                db_per_server = 1
+               node_worker = "ubuntu"
            }else{
                skip_numa = true
                kx_home = "/memverge/automation/KX_MISSIONB/l64"
                num_server = 5
                db_per_server = 10
+               node_worker = "jack_worker"
            }
            b1 = build job: "pipeline_mvmalloc_nightly_test", propagate: false, parameters: [string(name: "BUILD_LABEL", value: "Nightly regression ${list[i]}"),
            string(name: "HOSTS_DAX_MAP", value: "${HOSTS_DAX_MAP}"),
@@ -206,7 +208,8 @@ def snapshot_suite_all(list) {
            string(name: "SNAPSHOT_DEPTH", value: "5"), booleanParam(name: "SKIP_NUMA_CTL", value:"${skip_numa}"),
            string(name: "SNAPSHOT_WIDTH", value: "5"), string(name: "KX_HOME", value: "${kx_home}"),
            string(name: "MVTEST_BRANCH", value: "${MVTEST_BRANCH}"),
-           booleanParam(name: "TCMS_DRY_RUN", value: false), booleanParam(name: "TCMS_TRACE", value: false)]
+           booleanParam(name: "TCMS_DRY_RUN", value: false), booleanParam(name: "TCMS_TRACE", value: false),
+           [$class: "LabelParameterValue", name: "node", label: "${node_worker}"]]
            try{
                if(b1.result == 'FAILURE'|| b1.result == 'ABORTED') {
                 //if(b1.result == 'FAILURE') {
@@ -233,11 +236,13 @@ def snapshot_suite_all_huge(list) {
                kx_home = "/memverge/automation/KX/l64"
                num_server = 10
                db_per_server = 1
+               node_worker = "ubuntu"
            }else{
                skip_numa = true
                kx_home = "/memverge/automation/KX_MISSIONB/l64"
                num_server = 5
                db_per_server = 10
+               node_worker = "jack_worker"
            }           
            b1 = build job: "pipeline_mvmalloc_nightly_test", propagate: false, parameters: [string(name: "BUILD_LABEL", value: "Nightly regression ${list[i]}"),
            string(name: "HOSTS_DAX_MAP", value: "${HOSTS_DAX_MAP}"),
@@ -253,7 +258,8 @@ def snapshot_suite_all_huge(list) {
            string(name: "MVTEST_BRANCH", value: "${MVTEST_BRANCH}"),
            booleanParam(name: "TCMS_DRY_RUN", value: false), booleanParam(name: "TCMS_TRACE", value: false),
            booleanParam(name: 'HugePageDram', value: true), booleanParam(name: 'RegularDram', value: false), string(name: 'DramCacheGB', value: '5'),
-           booleanParam(name: 'start_mvmallocd_service', value: true)]
+           booleanParam(name: 'start_mvmallocd_service', value: true),
+           [$class: "LabelParameterValue", name: "node", label: "${node_worker}"]]
            try{
                 if(b1.result == 'FAILURE'|| b1.result == 'ABORTED') {
                 //if(b1.result == 'FAILURE') {
@@ -280,11 +286,13 @@ def snapshot_suite_all_regular(list) {
                kx_home = "/memverge/automation/KX/l64"
                num_server = 10
                db_per_server = 1
+               node_worker = "ubuntu"
            }else{
                skip_numa = true
                kx_home = "/memverge/automation/KX_MISSIONB/l64"
                num_server = 5
                db_per_server = 10
+               node_worker = "jack_worker"
            }           
            b1 = build job: "pipeline_mvmalloc_nightly_test", propagate: false, parameters: [string(name: "BUILD_LABEL", value: "Nightly regression ${list[i]}"),
            string(name: "HOSTS_DAX_MAP", value: "${HOSTS_DAX_MAP}"),
@@ -299,7 +307,8 @@ def snapshot_suite_all_regular(list) {
            string(name: "SNAPSHOT_WIDTH", value: "5"), string(name: "KX_HOME", value: "${kx_home}"),
            string(name: "MVTEST_BRANCH", value: "${MVTEST_BRANCH}"),
            booleanParam(name: "TCMS_DRY_RUN", value: false), booleanParam(name: "TCMS_TRACE", value: false),
-           booleanParam(name: 'HugePageDram', value: false), booleanParam(name: 'RegularDram', value: true), string(name: 'DramCacheGB', value: '5')]
+           booleanParam(name: 'HugePageDram', value: false), booleanParam(name: 'RegularDram', value: true), string(name: 'DramCacheGB', value: '5'),
+           [$class: "LabelParameterValue", name: "node", label: "${node_worker}"]]
            try{
                 if(b1.result == 'FAILURE'|| b1.result == 'ABORTED') {
                 //if(b1.result == 'FAILURE') {
@@ -326,11 +335,13 @@ def snapshot_suite_all_mvsnapd(list) {
                kx_home = "/memverge/automation/KX/l64"
                num_server = 10
                db_per_server = 1
+               node_worker = "ubuntu"
            }else{
                skip_numa = true
                kx_home = "/memverge/automation/KX_MISSIONB/l64"
                num_server = 5
                db_per_server = 10
+               node_worker = "jack_worker"
            }
            b1 = build job: "pipeline_mvmalloc_nightly_test", propagate: false, parameters: [string(name: "BUILD_LABEL", value: "Nightly regression mvsnapd ${list[i]}"),
            string(name: "HOSTS_DAX_MAP", value: "${HOSTS_DAX_MAP}"),
@@ -346,7 +357,8 @@ def snapshot_suite_all_mvsnapd(list) {
            string(name: "MVTEST_BRANCH", value: "${MVTEST_BRANCH}"),
            booleanParam(name: "TCMS_DRY_RUN", value: false), booleanParam(name: "TCMS_TRACE", value: false),
            booleanParam(name: 'start_mvmallocd_service', value: true),
-           booleanParam(name: 'mvsnapd_service', value: true)]
+           booleanParam(name: 'mvsnapd_service', value: true),
+           [$class: "LabelParameterValue", name: "node", label: "${node_worker}"]]
            try{
                if(b1.result == 'FAILURE'|| b1.result == 'ABORTED') {
                 //if(b1.result == 'FAILURE') {
@@ -428,7 +440,7 @@ def test_export_import(list){
         string(name: "MV_TESTS", value: "${list[i]}"), string(name: "USER_PW", value: "memverge"), 
         string(name: "NUMBER_SERVER", value: "5"), string(name: "DB_PER_SERVER", value: "5"), 
         string(name: "RECORD_PER_DB", value: "1000000"), 
-        string(name: "BUILD_LOCATION", value: "${BUILD_DIR}/rhel8/${BUILD_DATE}/${pkg_name}"), 
+        string(name: "BUILD_LOCATION", value: "${BUILD_DIR}/${RHEL_VER}/${BUILD_DATE}/${pkg_name}"), 
         string(name: "SNAPSHOT_DEPTH", value: "7"), booleanParam(name: "SKIP_NUMA_CTL", value: true), 
         string(name: "SNAPSHOT_WIDTH", value: "7"), 
         string(name: "KX_HOME", value: "/memverge/automation/KX/l64"), string(name: "MVTEST_BRANCH", value: "master"), 
@@ -459,7 +471,7 @@ def test_export_import(list){
 def hazelcastcluster(){
     b4 = build job: 'hazelcastcluster', parameters: [string(name: 'BUILD_LABEL', value: 'snapshot test'),
     string(name: 'TEST_SUITE', value: 'clusterPidns'), string(name: 'HOSTS_DAX_MAP', value:  "${HOSTS_DAX_MAP}"),
-    string(name: 'BUILD_LOCATION', value: "${BUILD_DIR}/rhel8/${BUILD_DATE}/${pkg_name}"),
+    string(name: 'BUILD_LOCATION', value: "${BUILD_DIR}/${RHEL_VER}/${BUILD_DATE}/${pkg_name}"),
     string(name: 'NUM_MEMBERS', value: ''), string(name: 'NUM_WORKERS', value: ''), string(name: 'NUM_RECORDS', value: ''),
     string(name: 'STEP_SIZE', value: ''), string(name: 'USER_PW', value: 'memverge'), 
     string(name: 'MM_PYTHON_BIN', value: '/memverge/automation/anaconda3/bin/python3'), string(name: 'JUPYTER_BIN', value: '/memverge/automation/anaconda3/bin'),
