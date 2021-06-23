@@ -111,10 +111,10 @@ node ("cicd_vm") {
         currentBuild.result = 'UNSTABLE'
     }
     try{
-       stage ("Nightly Snapshot test suite, mm bin installation")
+       stage ("Nightly Snapshot test suite, mm bin installation skip for now")
         {
             b1_result = 'SUCCESSFUL'
-            snapshot_suite_all_mm_bin(snapshot_tests)
+            //snapshot_suite_all_mm_bin(snapshot_tests)
             if(b1_result == 'FAILURE') {
                 echo "Stage failed"
                 sh "echo Stage failed;exit 1"
@@ -449,7 +449,7 @@ def test_export_import(list){
         booleanParam(name: "SNAP_PERF_TO_DASHBOARD", value: false),
         booleanParam(name: "start_mvmallocd_service", value: true), string(name: "DramCacheGB", value: "3"), 
         booleanParam(name: "HugePageDram", value: false), booleanParam(name: "RegularDram", value: false), 
-        string(name: "HOST_DAX_MAP_REMOTE", value: "10.0.1.88=/dev/dax0.0,/dev/dax1.0"), booleanParam(name: "runAsNoneSudo", value: false)]
+        string(name: "HOST_DAX_MAP_REMOTE", value: "${HOSTS_DAX_MAP_REMOTE}"), booleanParam(name: "runAsNoneSudo", value: false)]
         try{
                 if(b3.result == 'FAILURE'|| b3.result == 'ABORTED') {
                     echo "${list[i]} job failed"
