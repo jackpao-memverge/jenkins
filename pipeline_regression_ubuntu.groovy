@@ -186,7 +186,7 @@ def snapshot_suite_all(list) {
            if ("${list[i]}" == "snapshot_clone_test"){
                skip_numa = false
                kx_home = "/memverge/automation/KX/l64"
-               num_server = 10
+               num_server = 5
                db_per_server = 1
                node_worker = "ubuntu"
            }else{
@@ -234,7 +234,7 @@ def snapshot_suite_all_huge(list) {
            if ("${list[i]}" == "snapshot_clone_test"){
                skip_numa = false
                kx_home = "/memverge/automation/KX/l64"
-               num_server = 10
+               num_server = 5
                db_per_server = 1
                node_worker = "ubuntu"
            }else{
@@ -284,7 +284,7 @@ def snapshot_suite_all_regular(list) {
            if ("${list[i]}" == "snapshot_clone_test"){
                skip_numa = false
                kx_home = "/memverge/automation/KX/l64"
-               num_server = 10
+               num_server = 5
                db_per_server = 1
                node_worker = "ubuntu"
            }else{
@@ -333,7 +333,7 @@ def snapshot_suite_all_mvsnapd(list) {
            if ("${list[i]}" == "snapshot_clone_test"){
                skip_numa = false
                kx_home = "/memverge/automation/KX/l64"
-               num_server = 10
+               num_server = 5
                db_per_server = 1
                node_worker = "ubuntu"
            }else{
