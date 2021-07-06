@@ -126,7 +126,7 @@ def snapshot_suite_all(list) {
                db_per_server = 10
                //node_worker = "jack_worker"
            }
-           b1 = build job: "ubuntu-pipeline_mvmalloc_nightly_test", propagate: false, parameters: [string(name: "BUILD_LABEL", value: "Nightly regression ${list[i]}"),
+           b1 = build job: "pipeline_mvmalloc_nightly_test", propagate: false, parameters: [string(name: "BUILD_LABEL", value: "Nightly regression ${list[i]}"),
            string(name: "HOSTS_DAX_MAP", value: "${HOSTS_DAX_MAP}"),
            //string(name: "HOSTS_DAX_MAP", value: "padre-d.eng.memverge.com=/dev/dax0.0,/dev/dax1.0"),
            string(name: "MV_TESTS", value: "${list[i]}"),
@@ -175,7 +175,7 @@ def snapshot_suite_all_huge(list) {
                db_per_server = 10
                node_worker = "jack_worker"
            }           
-           b1 = build job: "ubuntu-pipeline_mvmalloc_nightly_test", propagate: false, parameters: [string(name: "BUILD_LABEL", value: "Nightly regression ${list[i]}"),
+           b1 = build job: "pipeline_mvmalloc_nightly_test", propagate: false, parameters: [string(name: "BUILD_LABEL", value: "Nightly regression ${list[i]}"),
            string(name: "HOSTS_DAX_MAP", value: "${HOSTS_DAX_MAP}"),
            //string(name: "HOSTS_DAX_MAP", value: "padre-d.eng.memverge.com=/dev/dax0.0,/dev/dax1.0"),
            string(name: "MV_TESTS", value: "${list[i]}"),
@@ -226,7 +226,7 @@ def snapshot_suite_all_regular(list) {
                db_per_server = 10
                node_worker = "jack_worker"
            }           
-           b1 = build job: "ubuntu-pipeline_mvmalloc_nightly_test", propagate: false, parameters: [string(name: "BUILD_LABEL", value: "Nightly regression ${list[i]}"),
+           b1 = build job: "pipeline_mvmalloc_nightly_test", propagate: false, parameters: [string(name: "BUILD_LABEL", value: "Nightly regression ${list[i]}"),
            string(name: "HOSTS_DAX_MAP", value: "${HOSTS_DAX_MAP}"),
            //string(name: "HOSTS_DAX_MAP", value: "padre-d.eng.memverge.com=/dev/dax0.0,/dev/dax1.0"),
            string(name: "MV_TESTS", value: "${list[i]}"),
@@ -276,7 +276,7 @@ def snapshot_suite_all_mvsnapd(list) {
                db_per_server = 10
                node_worker = "jack_worker"
            }
-           b1 = build job: "ubuntu-pipeline_mvmalloc_nightly_test", propagate: false, parameters: [string(name: "BUILD_LABEL", value: "Nightly regression mvsnapd ${list[i]}"),
+           b1 = build job: "pipeline_mvmalloc_nightly_test", propagate: false, parameters: [string(name: "BUILD_LABEL", value: "Nightly regression mvsnapd ${list[i]}"),
            string(name: "HOSTS_DAX_MAP", value: "${HOSTS_DAX_MAP}"),
            //string(name: "HOSTS_DAX_MAP", value: "padre-d.eng.memverge.com=/dev/dax0.0,/dev/dax1.0"),
            string(name: "MV_TESTS", value: "${list[i]}"),
@@ -325,7 +325,7 @@ def snapshot_suite_all_mm_bin(list) {
                num_server = 5
                db_per_server = 10
            }           
-           b1 = build job: "ubuntu-pipeline_mvmalloc_nightly_test", propagate: false, parameters: [string(name: "BUILD_LABEL", value: "Nightly regression ${list[i]}"),
+           b1 = build job: "pipeline_mvmalloc_nightly_test", propagate: false, parameters: [string(name: "BUILD_LABEL", value: "Nightly regression ${list[i]}"),
            string(name: "HOSTS_DAX_MAP", value:  "${HOSTS_DAX_MAP}"),
            //string(name: "HOSTS_DAX_MAP", value: "padre-d.eng.memverge.com=/dev/dax0.0,/dev/dax1.0"),
            string(name: "MV_TESTS", value: "${list[i]}"),
