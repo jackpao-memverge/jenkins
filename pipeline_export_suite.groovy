@@ -33,6 +33,7 @@ node ("cicd_vm") {
     catch (e){
         echo e.getMessage()
         currentBuild.result = 'UNSTABLE'
+    }
     finally {
             if("${SLACK_NOTIFICATION}" == 'true'){
                 sh String.format(slack_notification, "${BUILD_DIR}", success_job_list, failure_job_list, "${SLACK_WEBHOOK_URL}")
