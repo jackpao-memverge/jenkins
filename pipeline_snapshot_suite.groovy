@@ -16,7 +16,7 @@ success_job_list = []
 slack_notification = '''
 curl -X POST -H 'Content-type: application/json' --data \
 '{"text": \
-"NIGHTLY REGRESSION ubuntu: \n \
+"NIGHTLY REGRESSION snapshot suite: \n \
 BUILD_LOCATION: %s \n \
 JOBS LIST PASSED: \n%s \n \
 JOBS LIST FAILED (NIGHTLY NANNY PLEASE TRIAGE): \n%s"}' \
