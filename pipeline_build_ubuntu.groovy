@@ -1,4 +1,11 @@
 failure_job_list = []
+slack_notification = '''
+curl -X POST -H 'Content-type: application/json' --data \
+'{"text": \
+"NIGHTLY BULD ubuntu: \n \
+PIPELINE url: \n%s"}' \
+%s
+'''
 node ("cicd_vm") {
    currentBuild.displayName = "#${BUILD_NUMBER} ${BUILD_LABEL}"
    currentBuild.result = 'SUCCESS'
@@ -135,7 +142,7 @@ node ("cicd_vm") {
             "*Current run url* ${env.BUILD_URL}\n\n",
             subject: "Pipeline ubuntu Nightly Build", to: 'jack.pao@memverge.com'
             if("${SLACK_NOTIFICATION}" == 'true'){
-             
+                sh String.format(slack_notification, "${env.JOB_URL}", "${SLACK_WEBHOOK_URL}")
 
             }
    }

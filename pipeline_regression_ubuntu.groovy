@@ -28,7 +28,8 @@ curl -X POST -H 'Content-type: application/json' --data \
 "NIGHTLY REGRESSION ubuntu: \n \
 BUILD_LOCATION: %s \n \
 JOBS LIST PASSED: \n%s \n \
-JOBS LIST FAILED (NIGHTLY NANNY PLEASE TRIAGE): \n%s"}' \
+JOBS LIST FAILED (NIGHTLY NANNY PLEASE TRIAGE): \n%s" \n \
+PIPELINE url: \n%s"}' \
 %s
 '''
 
@@ -174,7 +175,7 @@ node ("cicd_vm") {
     }
     finally {
             if("${SLACK_NOTIFICATION}" == 'true'){
-                sh String.format(slack_notification, "${BUILD_DIR}", success_job_list, failure_job_list, "${SLACK_WEBHOOK_URL}")
+                sh String.format(slack_notification, "${BUILD_LOCATION}", success_job_list, failure_job_list, "${env.JOB_URL}","${SLACK_WEBHOOK_URL}")
             }
     }
 
@@ -203,7 +204,7 @@ def snapshot_suite_all(list) {
            string(name: "USER_PW", value: "memverge"), string(name: "NUMBER_SERVER", value: "${num_server}"),
            //string(name: "USER_PW", value: "memverge"), string(name: "NUMBER_SERVER", value: "5"),
            string(name: "DB_PER_SERVER", value: "${db_per_server}"), string(name: "RECORD_PER_DB", value: "1000000"),
-           string(name: "BUILD_LOCATION", value: "${BUILD_DIR}/${RHEL_VER}/${BUILD_DATE}/${pkg_name}"),
+           string(name: "BUILD_LOCATION", value: "${BUILD_LOCATION}"),
            //string(name: "BUILD_LOCATION", value: "${BUILD_DIR}/rhel8/${BUILD_DATE}/mvmm*x86_64.tgz"),
            string(name: "SNAPSHOT_DEPTH", value: "5"), booleanParam(name: "SKIP_NUMA_CTL", value:"${skip_numa}"),
            string(name: "SNAPSHOT_WIDTH", value: "5"), string(name: "KX_HOME", value: "${kx_home}"),
@@ -251,7 +252,7 @@ def snapshot_suite_all_huge(list) {
            string(name: "USER_PW", value: "memverge"), string(name: "NUMBER_SERVER", value: "${num_server}"),
            //string(name: "USER_PW", value: "memverge"), string(name: "NUMBER_SERVER", value: "5"),
            string(name: "DB_PER_SERVER", value: "${db_per_server}"), string(name: "RECORD_PER_DB", value: "1000000"),
-           string(name: "BUILD_LOCATION", value: "${BUILD_DIR}/${RHEL_VER}/${BUILD_DATE}/${pkg_name}"),
+           string(name: "BUILD_LOCATION", value: "${BUILD_LOCATION}"),
            //string(name: "BUILD_LOCATION", value: "${BUILD_DIR}/rhel8/${BUILD_DATE}/mvmm*x86_64.tgz"),
            string(name: "SNAPSHOT_DEPTH", value: "5"), booleanParam(name: "SKIP_NUMA_CTL", value:"${skip_numa}"),
            string(name: "SNAPSHOT_WIDTH", value: "5"), string(name: "KX_HOME", value: "${kx_home}"),
@@ -301,7 +302,7 @@ def snapshot_suite_all_regular(list) {
            string(name: "USER_PW", value: "memverge"), string(name: "NUMBER_SERVER", value: "${num_server}"),
            //string(name: "USER_PW", value: "memverge"), string(name: "NUMBER_SERVER", value: "5"),
            string(name: "DB_PER_SERVER", value: "${db_per_server}"), string(name: "RECORD_PER_DB", value: "1000000"),
-           string(name: "BUILD_LOCATION", value: "${BUILD_DIR}/${RHEL_VER}/${BUILD_DATE}/${pkg_name}"),
+           string(name: "BUILD_LOCATION", value: "${BUILD_LOCATION}"),
            //string(name: "BUILD_LOCATION", value: "${BUILD_DIR}/rhel8/${BUILD_DATE}/mvmm*x86_64.tgz"),
            string(name: "SNAPSHOT_DEPTH", value: "5"), booleanParam(name: "SKIP_NUMA_CTL", value: "${skip_numa}"),
            string(name: "SNAPSHOT_WIDTH", value: "5"), string(name: "KX_HOME", value: "${kx_home}"),
@@ -350,7 +351,7 @@ def snapshot_suite_all_mvsnapd(list) {
            string(name: "USER_PW", value: "memverge"), string(name: "NUMBER_SERVER", value: "${num_server}"),
            //string(name: "USER_PW", value: "memverge"), string(name: "NUMBER_SERVER", value: "5"),
            string(name: "DB_PER_SERVER", value: "${db_per_server}"), string(name: "RECORD_PER_DB", value: "1000000"),
-           string(name: "BUILD_LOCATION", value: "${BUILD_DIR}/${RHEL_VER}/${BUILD_DATE}/${pkg_name}"),
+           string(name: "BUILD_LOCATION", value: "${BUILD_LOCATION}"),
            //string(name: "BUILD_LOCATION", value: "${BUILD_DIR}/rhel8/${BUILD_DATE}/mvmm*x86_64.tgz"),
            string(name: "SNAPSHOT_DEPTH", value: "5"), booleanParam(name: "SKIP_NUMA_CTL", value:"${skip_numa}"),
            string(name: "SNAPSHOT_WIDTH", value: "5"), string(name: "KX_HOME", value: "${kx_home}"),
@@ -409,7 +410,7 @@ def install_suite_all(list){
     for (int i = 0; i < list.size(); i++) {
            echo "Test: ${list[i]}"
            b0 = build job: 'pipeline_mvmalloc_nightly_install', propagate: false, parameters: [string(name: 'BUILD_LABEL', value: 'Nightly regression'), 
-           string(name: 'BUILD_LOCATION', value: "${BUILD_DIR}/${RHEL_VER}/${BUILD_DATE}/${pkg_name}"), 
+           string(name: 'BUILD_LOCATION', value: "${BUILD_LOCATION}"), 
            string(name: 'TEST_SUITE', value: "${list[i]}"), string(name: 'HOSTS_DAX_MAP', value:  "${HOSTS_DAX_MAP}"), 
            string(name: 'USER_PW', value: 'memverge'), booleanParam(name: 'SKIP_NUMA_CTL', value: true), 
            booleanParam(name: 'FORCE_CLEANUP', value: true), string(name: 'MVTEST_BRANCH', value: 'ubuntu'), 
@@ -440,7 +441,7 @@ def test_export_import(list){
         string(name: "MV_TESTS", value: "${list[i]}"), string(name: "USER_PW", value: "memverge"), 
         string(name: "NUMBER_SERVER", value: "5"), string(name: "DB_PER_SERVER", value: "5"), 
         string(name: "RECORD_PER_DB", value: "1000000"), 
-        string(name: "BUILD_LOCATION", value: "${BUILD_DIR}/${RHEL_VER}/${BUILD_DATE}/${pkg_name}"), 
+        string(name: "BUILD_LOCATION", value: "${BUILD_LOCATION}"), 
         string(name: "SNAPSHOT_DEPTH", value: "3"), booleanParam(name: "SKIP_NUMA_CTL", value: true), 
         string(name: "SNAPSHOT_WIDTH", value: "3"), 
         string(name: "KX_HOME", value: "/memverge/automation/KX/l64"), string(name: "MVTEST_BRANCH", value: "master"), 
@@ -471,7 +472,7 @@ def test_export_import(list){
 def hazelcastcluster(){
     b4 = build job: 'hazelcastcluster', parameters: [string(name: 'BUILD_LABEL', value: 'snapshot test'),
     string(name: 'TEST_SUITE', value: 'clusterPidns'), string(name: 'HOSTS_DAX_MAP', value:  "${HOSTS_DAX_MAP}"),
-    string(name: 'BUILD_LOCATION', value: "${BUILD_DIR}/${RHEL_VER}/${BUILD_DATE}/${pkg_name}"),
+    string(name: 'BUILD_LOCATION', value: "${BUILD_LOCATION}"),
     string(name: 'NUM_MEMBERS', value: ''), string(name: 'NUM_WORKERS', value: ''), string(name: 'NUM_RECORDS', value: ''),
     string(name: 'STEP_SIZE', value: ''), string(name: 'USER_PW', value: 'memverge'), 
     string(name: 'MM_PYTHON_BIN', value: '/memverge/automation/anaconda3/bin/python3'), string(name: 'JUPYTER_BIN', value: '/memverge/automation/anaconda3/bin'),
