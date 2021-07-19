@@ -19,10 +19,10 @@ node ("cicd_vm") {
        //{
        //  build job: 'pipeline_mvmalloc_nightly_install', parameters: [string(name: 'BUILD_LABEL', value: 'basic install test'),
        //   string(name: 'BUILD_LOCATION', value:  "/nfs/memverge/home/mvm/${BUILD_LABEL}_tmp/${RHEL_VER}/*/${pkg_name}"),
-        //  string(name: 'TEST_SUITE', value: 'test_fresh_install'), string(name: 'HOSTS_DAX_MAP', value: '10.0.0.102=/dev/dax0.0,/dev/dax1.0'),
-        //  //string(name: 'TEST_SUITE', value: 'test_fresh_install'), string(name: 'HOSTS_DAX_MAP', value: '10.0.1.165=/dev/dax0.0,/dev/dax1.0'),
-        //  string(name: 'USER_PW', value: 'memverge'), booleanParam(name: 'SKIP_NUMA_CTL', value: true), booleanParam(name: 'FORCE_CLEANUP', value: true),
-        //  string(name: 'MVTEST_BRANCH', value: 'master'), booleanParam(name: 'TCMS_DRY_RUN', value: false), booleanParam(name: 'TCMS_TRACE', value: false)]
+       //  string(name: 'TEST_SUITE', value: 'test_fresh_install'), string(name: 'HOSTS_DAX_MAP', value: "${HOSTS_DAX_MAP}"),
+       //  //string(name: 'TEST_SUITE', value: 'test_fresh_install'), string(name: 'HOSTS_DAX_MAP', value: '10.0.1.165=/dev/dax0.0,/dev/dax1.0'),
+       //  string(name: 'USER_PW', value: 'memverge'), booleanParam(name: 'SKIP_NUMA_CTL', value: true), booleanParam(name: 'FORCE_CLEANUP', value: true),
+       //  string(name: 'MVTEST_BRANCH', value: 'ubuntu'), booleanParam(name: 'TCMS_DRY_RUN', value: false), booleanParam(name: 'TCMS_TRACE', value: false)]
        //}
        stage ("Functional redis test")
        {
@@ -118,16 +118,11 @@ node ("cicd_vm") {
             string(name: "MVTEST_BRANCH", value: "${MVTEST_BRANCH}"), string(name: "BUILD_PACKAGE_NAME", value: "${pkg_name}"),
             booleanParam(name: 'TCMS_DRY_RUN', value: false), booleanParam(name: 'TCMS_TRACE', value: false)]
         }
-       //stage ("Package")
-       //{
-       //   echo "pkg rhel7"
-       //   build job: 'pipeline_mvmalloc_nightly_pkg', parameters: [string(name: 'BUILD_BRANCH', value: "${BUILD_LABEL}"), string(name: "RHEL_VER", value: "${RHEL_VER}")]
-       //   echo "pkg rhel8"
-       //   build job: 'pipeline_mvmalloc_nightly_pkg', parameters: [string(name: 'BUILD_BRANCH', value: "${BUILD_LABEL}"), string(name: "RHEL_VER", value: "rhel8")]
-       //
-       //   echo "pkg both rhel7 and rhel8"
-       //   build job: 'pipeline_pkg_rhel78_same_dir', parameters: [string(name: 'BUILD_BRANCH', value: "${BUILD_LABEL}")]
-       //}
+       stage ("Package")
+       {
+          echo "pkg to nfs /memverge/home/mvm"
+          build job: 'pipeline_mvmalloc_nightly_ubuntu_pkg', parameters: [string(name: 'RHEL_VER', value: 'ubuntu'), string(name: 'BUILD_BRANCH', value: "${BUILD_LABEL}")]
+       }
    }
    catch (e){
             echo e.getMessage()
