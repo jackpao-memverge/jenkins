@@ -3,6 +3,7 @@ slack_notification = '''
 curl -X POST -H 'Content-type: application/json' --data \
 '{"text": \
 "NIGHTLY BULD ubuntu: \n \
+"Status: %s"\n \
 PIPELINE url: \n%s"}' \
 %s
 '''
@@ -142,7 +143,7 @@ node ("cicd_vm") {
             "*Current run url* ${env.BUILD_URL}\n\n",
             subject: "Pipeline ubuntu Nightly Build", to: 'jack.pao@memverge.com'
             if("${SLACK_NOTIFICATION}" == 'true'){
-                sh String.format(slack_notification, "${env.JOB_URL}", "${SLACK_WEBHOOK_URL}")
+                sh String.format(slack_notification, "${currentBuild.result}", "${env.JOB_URL}", "${SLACK_WEBHOOK_URL}")
 
             }
    }
