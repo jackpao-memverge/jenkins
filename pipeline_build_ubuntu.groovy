@@ -3,7 +3,7 @@ slack_notification = '''
 curl -X POST -H 'Content-type: application/json' --data \
 '{"text": \
 "NIGHTLY BUILD ubuntu: \n \
-"Status: %s"\n \
+Status: %s\n \
 PIPELINE url: \n%s"}' \
 %s
 '''
