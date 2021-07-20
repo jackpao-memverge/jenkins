@@ -2,7 +2,7 @@ failure_job_list = []
 slack_notification = '''
 curl -X POST -H 'Content-type: application/json' --data \
 '{"text": \
-"NIGHTLY BULD ubuntu: \n \
+"NIGHTLY BUILD ubuntu: \n \
 "Status: %s"\n \
 PIPELINE url: \n%s"}' \
 %s

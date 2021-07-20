@@ -28,7 +28,7 @@ curl -X POST -H 'Content-type: application/json' --data \
 "NIGHTLY REGRESSION ubuntu: \n \
 BUILD_LOCATION: %s \n \
 JOBS LIST PASSED: \n%s \n \
-JOBS LIST FAILED (NIGHTLY NANNY PLEASE TRIAGE): \n%s" \n \
+JOBS LIST FAILED (NIGHTLY NANNY PLEASE TRIAGE): \n%s \n \
 PIPELINE url: \n%s"}' \
 %s
 '''
