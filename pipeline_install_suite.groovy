@@ -13,10 +13,13 @@ JOBS LIST FAILED (NIGHTLY NANNY PLEASE TRIAGE): \n%s"}' \
 %s
 '''
 
+MVTEST_SUITE = "${env.JOB_BASE_NAME}"
+
 node ("cicd_vm") {
     currentBuild.displayName = "#${BUILD_NUMBER} ${BUILD_LABEL}"
     currentBuild.result = 'SUCCESS'
    try{
+       MVTEST_GROUP = "[Nightly] Install test suite"
        stage ("Nightly Install test suite")
         {
             b0_result = 'SUCCESSFUL'
@@ -42,12 +45,14 @@ node ("cicd_vm") {
 def install_suite_all(list){
     for (int i = 0; i < list.size(); i++) {
            echo "Test: ${list[i]}"
-           b0 = build job: 'pipeline_mvmalloc_nightly_install', propagate: false, parameters: [string(name: 'BUILD_LABEL', value: 'Nightly regression'), 
-           string(name: 'BUILD_LOCATION', value: "${BUILD_DIR}/${RHEL_VER}/${BUILD_DATE}/${pkg_name}"), 
-           string(name: 'TEST_SUITE', value: "${list[i]}"), string(name: 'HOSTS_DAX_MAP', value:  "${HOSTS_DAX_MAP}"), 
-           string(name: 'USER_PW', value: 'memverge'), booleanParam(name: 'SKIP_NUMA_CTL', value: true), 
-           booleanParam(name: 'FORCE_CLEANUP', value: true), string(name: 'MVTEST_BRANCH', value: "${MVTEST_BRANCH}"), 
-           booleanParam(name: 'TCMS_DRY_RUN', value: false), booleanParam(name: 'TCMS_TRACE', value: false)]
+           b0 = build job: 'pipeline_mvmalloc_nightly_install', propagate: false, parameters: [
+                string(name: "BUILD_LABEL", value: "${MVTEST_SUITE} | ${MVTEST_GROUP} | ${list[i]}"),
+                string(name: 'BUILD_LOCATION', value: "${BUILD_DIR}/${RHEL_VER}/${BUILD_DATE}/${pkg_name}"), 
+                string(name: 'TEST_SUITE', value: "${list[i]}"), string(name: 'HOSTS_DAX_MAP', value:  "${HOSTS_DAX_MAP}"), 
+                string(name: 'USER_PW', value: 'memverge'), booleanParam(name: 'SKIP_NUMA_CTL', value: true), 
+                booleanParam(name: 'FORCE_CLEANUP', value: true), string(name: 'MVTEST_BRANCH', value: "${MVTEST_BRANCH}"), 
+                booleanParam(name: 'TCMS_DRY_RUN', value: false), booleanParam(name: 'TCMS_TRACE', value: false)
+            ]
             try{
                 if(b0.result == 'FAILURE'|| b0.result == 'ABORTED') {
                     echo "${list[i]} job failed"
