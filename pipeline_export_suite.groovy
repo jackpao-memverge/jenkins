@@ -16,12 +16,15 @@ JOBS LIST FAILED (NIGHTLY NANNY PLEASE TRIAGE): \n%s"}' \
 %s
 '''
 
+MVTEST_SUITE = "${env.JOB_BASE_NAME}"
+
 node ("cicd_vm") {
     currentBuild.displayName = "#${BUILD_NUMBER} ${BUILD_LABEL}"
     currentBuild.result = 'SUCCESS'
     try{
        stage ("Nightly Export Import workflow")
         {
+            MVTEST_GROUP = "[Nightly] Export import test suite"
             b3_result = 'SUCCESSFUL'
             test_export_import(export_import_tests)
             if(b3_result == 'FAILURE') {
@@ -45,7 +48,7 @@ node ("cicd_vm") {
 def test_export_import(list){
     for (int i = 0; i < list.size(); i++) {
         echo "Test: ${list[i]}"
-        b3 = build job: "test_export_import", propagate: false, parameters: [string(name: "BUILD_LABEL", value: "Nightly regression ${list[i]}"), 
+        b3 = build job: "test_export_import", propagate: false, parameters: [string(name: "BUILD_LABEL", value: "${MVTEST_SUITE} | ${MVTEST_GROUP} | ${list[i]}"), 
         string(name: "HOSTS_DAX_MAP", value:  "${HOSTS_DAX_MAP}"), 
         string(name: "MV_TESTS", value: "${list[i]}"), string(name: "USER_PW", value: "memverge"), 
         string(name: "NUMBER_SERVER", value: "5"), string(name: "DB_PER_SERVER", value: "5"), 
