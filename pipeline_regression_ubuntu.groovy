@@ -413,7 +413,7 @@ def install_suite_all(list){
            string(name: 'BUILD_LOCATION', value: "${BUILD_LOCATION}"), 
            string(name: 'TEST_SUITE', value: "${list[i]}"), string(name: 'HOSTS_DAX_MAP', value:  "${HOSTS_DAX_MAP}"), 
            string(name: 'USER_PW', value: 'memverge'), booleanParam(name: 'SKIP_NUMA_CTL', value: true), 
-           booleanParam(name: 'FORCE_CLEANUP', value: true), string(name: 'MVTEST_BRANCH', value: 'ubuntu'), 
+           booleanParam(name: 'FORCE_CLEANUP', value: true), string(name: 'MVTEST_BRANCH', value: "${MVTEST_BRANCH}"), 
            booleanParam(name: 'TCMS_DRY_RUN', value: false), booleanParam(name: 'TCMS_TRACE', value: false)]
             try{
                 if(b0.result == 'FAILURE'|| b0.result == 'ABORTED') {
@@ -444,7 +444,7 @@ def test_export_import(list){
         string(name: "BUILD_LOCATION", value: "${BUILD_LOCATION}"), 
         string(name: "SNAPSHOT_DEPTH", value: "3"), booleanParam(name: "SKIP_NUMA_CTL", value: true), 
         string(name: "SNAPSHOT_WIDTH", value: "3"), 
-        string(name: "KX_HOME", value: "/memverge/automation/KX/l64"), string(name: "MVTEST_BRANCH", value: "master"), 
+        string(name: "KX_HOME", value: "/memverge/automation/KX/l64"), string(name: "MVTEST_BRANCH", value: "${MVTEST_BRANCH}"), 
         booleanParam(name: "TCMS_DRY_RUN", value: false), booleanParam(name: "TCMS_TRACE", value: true), 
         booleanParam(name: "TCMS_UPLOAD", value: true), string(name: "DEBUG_BINARIES_PATH", value: ""), 
         booleanParam(name: "SNAP_PERF_TO_DASHBOARD", value: false),
