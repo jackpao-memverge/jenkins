@@ -446,7 +446,7 @@ def test_export_import(list){
         string(name: "SNAPSHOT_WIDTH", value: "3"), 
         string(name: "KX_HOME", value: "/memverge/automation/KX/l64"), string(name: "MVTEST_BRANCH", value: "${MVTEST_BRANCH}"), 
         booleanParam(name: "TCMS_DRY_RUN", value: false), booleanParam(name: "TCMS_TRACE", value: true), 
-        booleanParam(name: "TCMS_UPLOAD", value: true), string(name: "DEBUG_BINARIES_PATH", value: ""), 
+        booleanParam(name: "TCMS_UPLOAD", value: false), string(name: "DEBUG_BINARIES_PATH", value: ""), 
         booleanParam(name: "SNAP_PERF_TO_DASHBOARD", value: false),
         booleanParam(name: "start_mvmallocd_service", value: true), string(name: "DramCacheGB", value: "3"), 
         booleanParam(name: "HugePageDram", value: false), booleanParam(name: "RegularDram", value: false), 
