@@ -115,7 +115,7 @@ node ("cicd_vm") {
        stage ("Nightly Snapshot test suite, mm bin installation skip for now")
         {
             b1_result = 'SUCCESSFUL'
-            //snapshot_suite_all_mm_bin(snapshot_tests)
+            snapshot_suite_all_mm_bin(snapshot_tests)
             if(b1_result == 'FAILURE') {
                 echo "Stage failed"
                 sh "echo Stage failed;exit 1"
