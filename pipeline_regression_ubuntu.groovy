@@ -96,21 +96,21 @@ node ("cicd_vm") {
         echo e.getMessage()
         currentBuild.result = 'UNSTABLE'
     }
-    try{
-       stage ("Nightly Snapshot test suite, mvsnapd service")
-        {
-            b1_result = 'SUCCESSFUL'
-            snapshot_suite_all_mvsnapd(snapshot_tests_mvsnapd)
-            if(b1_result == 'FAILURE') {
-                echo "Stage failed"
-                sh "echo Stage failed;exit 1"
-            }
-         }
-    }
-    catch (e){
-        echo e.getMessage()
-        currentBuild.result = 'UNSTABLE'
-    }
+   // try{
+   //    stage ("Nightly Snapshot test suite, mvsnapd service")
+   //     {
+   //         b1_result = 'SUCCESSFUL'
+   //         snapshot_suite_all_mvsnapd(snapshot_tests_mvsnapd)
+   //         if(b1_result == 'FAILURE') {
+   //             echo "Stage failed"
+   //             sh "echo Stage failed;exit 1"
+   //         }
+   //      }
+   // }
+   // catch (e){
+   //     echo e.getMessage()
+   //     currentBuild.result = 'UNSTABLE'
+   // }
     try{
        stage ("Nightly Snapshot test suite, mm bin installation skip for now")
         {
