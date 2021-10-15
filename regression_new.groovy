@@ -487,7 +487,7 @@ def snapshot_suite_all_mm_bin(list) {
            string(name: 'SNAPSHOT_DEPTH', value: '5'), booleanParam(name: 'SKIP_NUMA_CTL', value: true),
            string(name: 'SNAPSHOT_WIDTH', value: '5'), string(name: 'KX_HOME', value: '/memverge/automation/KX_MISSIONB/l64'),
            string(name: 'MVTEST_BRANCH', value: "${MVTEST_BRANCH}"),
-           string(name: 'MM_INSTALL_BIN', value: "/memverge/home/mvm/memory_machine_nightly/master/latest/MemoryMachine-*-${RHEL_VER}.RELEASE.bin"),
+           string(name: 'MM_INSTALL_BIN', value: "${mm_install_path}"),
            booleanParam(name: 'TCMS_DRY_RUN', value: false), booleanParam(name: 'TCMS_TRACE', value: false),
            booleanParam(name: 'HugePageDram', value: false), booleanParam(name: 'RegularDram', value: true), string(name: 'DramCacheGB', value: '5')]
         try {
@@ -509,10 +509,10 @@ def snapshot_suite_all_mm_bin(list) {
     }
 
 def tmuxfunctional() {
-    def job_url = 'https://104.184.156.164:8888/job/monkey_shell/'
-    def MVTEST_SUITE = "${env.JOB_BASE_NAME}"
-    def MVTEST_GROUP = '[Nightly] Tmux functional test suite'
-    def MVTEST_TEST = 'allWorkflow'
+    job_url = 'https://104.184.156.164:8888/job/monkey_shell/'
+    MVTEST_SUITE = "${env.JOB_BASE_NAME}"
+    MVTEST_GROUP = '[Nightly] Tmux functional test suite'
+    MVTEST_TEST = 'allWorkflow'
 
     my_job = build job: 'tmux_functional',
             propagate: false,
@@ -552,11 +552,11 @@ def tmuxfunctional() {
     }
 
 def shellmonkey() {
-    def job_url = 'https://104.184.156.164:8888/job/monkey_shell/'
-    def MVTEST_SUITE = "${env.JOB_BASE_NAME}"
-    def MVTEST_GROUP = '[Nightly] Shell monkey test suite'
-    def MVTEST_TEST = 'all'
-    def my_job = ''
+    job_url = 'https://104.184.156.164:8888/job/monkey_shell/'
+    MVTEST_SUITE = "${env.JOB_BASE_NAME}"
+    MVTEST_GROUP = '[Nightly] Shell monkey test suite'
+    MVTEST_TEST = 'all'
+    my_job = ''
 
     my_job = build job: 'monkey_shell',
             parameters: [
@@ -591,11 +591,11 @@ def shellmonkey() {
     }
 
 def pythonmonkey() {
-    def job_url = 'https://104.184.156.164:8888/job/monkey_python/'
-    def MVTEST_SUITE = "${env.JOB_BASE_NAME}"
-    def MVTEST_GROUP = '[Nightly] Python monkey test suite'
-    def MVTEST_TEST = 'basicWorkflow'
-    def my_job = ''
+    job_url = 'https://104.184.156.164:8888/job/monkey_python/'
+    MVTEST_SUITE = "${env.JOB_BASE_NAME}"
+    MVTEST_GROUP = '[Nightly] Python monkey test suite'
+    MVTEST_TEST = 'basicWorkflow'
+    my_job = ''
 
     my_job = build job: 'monkey_python',
             parameters: [
