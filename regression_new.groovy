@@ -96,21 +96,6 @@ node ("cicd_vm") {
         currentBuild.result = 'UNSTABLE'
     }
     try{
-       stage ("Nightly Snapshot test suite, mvsnapd service")
-        {
-            b1_result = 'SUCCESSFUL'
-            snapshot_suite_all_mvsnapd(snapshot_tests_mvsnapd)
-            if(b1_result == 'FAILURE') {
-                echo "Stage failed"
-                sh "echo Stage failed;exit 1"
-            }
-         }
-    }
-    catch (e){
-        echo e.getMessage()
-        currentBuild.result = 'UNSTABLE'
-    }
-    try{
        stage ("Nightly Snapshot test suite, mm bin installation")
         {
             b1_result = 'SUCCESSFUL'
@@ -126,21 +111,21 @@ node ("cicd_vm") {
         currentBuild.result = 'UNSTABLE'
     }
     
-    // try{
-    //     stage ("Nightly MVMCLI workflow")
-    //      {
-    //          b2_result = 'SUCCESSFUL'
-    //          mvmcli_suite_all(mvmcli_tests)
-    //          if(b2_result == 'FAILURE') {
-    //              echo "Stage failed"
-    //              sh "echo Stage failed;exit 1"
-    //          }
-    //      }
-    // }
-    // catch (e){
-    //     echo e.getMessage()
-    //     currentBuild.result = 'UNSTABLE'
-    // }
+     try{
+         stage ("Nightly MVMCLI workflow")
+          {
+              b2_result = 'SUCCESSFUL'
+              mvmcli_suite_all(mvmcli_tests)
+              if(b2_result == 'FAILURE') {
+                  echo "Stage failed"
+                  sh "echo Stage failed;exit 1"
+              }
+          }
+     }
+     catch (e){
+         echo e.getMessage()
+         currentBuild.result = 'UNSTABLE'
+     }
     try{
        stage ("Nightly Export Import workflow")
         {
@@ -156,21 +141,21 @@ node ("cicd_vm") {
         echo e.getMessage()
         currentBuild.result = 'UNSTABLE'
     }
-    //try{
-    //   stage ("Nightly hazelcastcluster workflow")
-    //    {
-    //        b4_result = 'SUCCESSFUL'
-    //        hazelcastcluster()
-    //        if(b4_result == 'FAILURE') {
-    //            echo "Stage failed"
-    //            sh "echo Stage failed;exit 1"
-    //        }
-    //    }
-    //}
-    //catch (e){
-    //    echo e.getMessage()
-    //    currentBuild.result = 'UNSTABLE'
-    //}
+    try{
+       stage ("Nightly hazelcastcluster workflow")
+        {
+            b4_result = 'SUCCESSFUL'
+            hazelcastcluster()
+            if(b4_result == 'FAILURE') {
+                echo "Stage failed"
+                sh "echo Stage failed;exit 1"
+            }
+        }
+    }
+    catch (e){
+        echo e.getMessage()
+        currentBuild.result = 'UNSTABLE'
+    }
     finally {
             emailext body:
             "*Pipline status-- compatibility*: ${currentBuild.result}\n\n" +
@@ -421,7 +406,7 @@ def test_export_import(list){
 
 def hazelcastcluster(){
     b4 = build job: 'hazelcastcluster', parameters: [string(name: 'BUILD_LABEL', value: 'snapshot test'),
-    string(name: 'TEST_SUITE', value: 'clusterPidns'), string(name: 'HOSTS_DAX_MAP', value: '10.0.1.88=/dev/dax0.0,/dev/dax1.0'),
+    string(name: 'TEST_SUITE', value: 'clusterPidns'), string(name: 'HOSTS_DAX_MAP', value: "${HOSTS_DAX_MAP}"),
     string(name: 'BUILD_LOCATION', value: "${BUILD_DIR}/rhel8/${BUILD_DATE}/${pkg_name}"),
     string(name: 'NUM_MEMBERS', value: ''), string(name: 'NUM_WORKERS', value: ''), string(name: 'NUM_RECORDS', value: ''),
     string(name: 'STEP_SIZE', value: ''), string(name: 'USER_PW', value: 'memverge'), 
