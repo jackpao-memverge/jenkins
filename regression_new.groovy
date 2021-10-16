@@ -11,10 +11,7 @@
 //     "run_export_import_kdb_wide_test_remote",
 //     "redis_deep_snapshot_test_with_export"
 // ]
-// mvmcli_tests = ["allMvmcliWorkFlows"]
-
-//begin removing kdb tests
-//"kx_insert_performance_test"
+mvmcli_tests = ["allMvmcliWorkFlows"]
 snapshot_tests = ['redis_deep_snapshot_test', 'redis_wide_snapshot_test',
 'run_redis_snapshot_functional_test',
 'snapshot_with_load_in_bg_test']
@@ -25,9 +22,6 @@ snapshot_tests_mvsnapd = ['redis_deep_snapshot_test', 'redis_wide_snapshot_test'
 export_import_tests = [
     'redis_deep_snapshot_test_with_export'
 ]
-
-mvmcli_tests = []
-//end removing kdb tests, more below
 
 install_tests = ['test_fresh_install', 'test_fresh_uninstall']
 failure_job_list = []
@@ -421,7 +415,7 @@ def test_export_import(list) {
         string(name: 'BUILD_LOCATION', value: "${BUILD_DIR}/${RHEL_VER}/${BUILD_DATE}/${pkg_name}"),
         string(name: 'SNAPSHOT_DEPTH', value: '7'), booleanParam(name: 'SKIP_NUMA_CTL', value: true),
         string(name: 'SNAPSHOT_WIDTH', value: '7'),
-        string(name: 'KX_HOME', value: '/memverge/automation/q/l64'), string(name: 'MVTEST_BRANCH', value: 'master'),
+        string(name: 'KX_HOME', value: '/memverge/automation/q/l64'), string(name: 'MVTEST_BRANCH', value: "${MVTEST_BRANCH}"),
         booleanParam(name: 'TCMS_DRY_RUN', value: false), booleanParam(name: 'TCMS_TRACE', value: true),
         booleanParam(name: 'TCMS_UPLOAD', value: true), string(name: 'DEBUG_BINARIES_PATH', value: ''),
         booleanParam(name: 'SNAP_PERF_TO_DASHBOARD', value: false),
@@ -455,6 +449,7 @@ def hazelcastcluster() {
     booleanParam(name: 'SKIP_REBOOT_WORKFLOW', value: false), string(name: 'EXTRA_PARAMS', value: ''),
     string(name: 'BOT_TEST_NAME', value: ''), string(name: 'RESULT_PATH', value: ''), string(name: 'PUT_IN_INFLUXDB', value: ''),
     string(name: 'DEBUG_BINARIES_PATH', value: ''),
+    string(name: 'MVTEST_BRANCH', value: "${MVTEST_BRANCH}"),
     string(name: 'LOG_LVL', value: '2')]
     try {
         if (b4.result == 'FAILURE' || b4.result == 'ABORTED') {
@@ -518,7 +513,7 @@ def tmuxfunctional() {
             propagate: false,
             parameters: [
                 string(name: 'BUILD_LABEL', value: "${MVTEST_SUITE} | ${MVTEST_GROUP} | ${MVTEST_TEST}"),
-                string(name: 'MVTEST_BRANCH', value: "${def_mvtest_branch}"),
+                string(name: 'MVTEST_BRANCH', value: "${MVTEST_BRANCH}"),
                 string(name: 'BUILD_LOCATION', value: "${BUILD_DIR}/${RHEL_VER}/${BUILD_DATE}/${pkg_name}"),
                 booleanParam(name: 'TCMS_TRACE', value: "${def_tcms_trace}"),
                 booleanParam(name: 'TCMS_DRY_RUN', value: "${def_tcms_dry_run}"),
@@ -561,7 +556,7 @@ def shellmonkey() {
     my_job = build job: 'monkey_shell',
             parameters: [
                 string(name: 'BUILD_LABEL', value: "${MVTEST_SUITE} | ${MVTEST_GROUP} | ${MVTEST_TEST}"),
-                string(name: 'MVTEST_BRANCH', value: "${def_mvtest_branch}"),
+                string(name: 'MVTEST_BRANCH', value: "${MVTEST_BRANCH}"),
                 string(name: 'BUILD_LOCATION', value: "${BUILD_DIR}/${RHEL_VER}/${BUILD_DATE}/${pkg_name}"),
                 booleanParam(name: 'TCMS_TRACE', value: "${def_tcms_trace}"),
                 booleanParam(name: 'TCMS_DRY_RUN', value: "${def_tcms_dry_run}"),
@@ -600,7 +595,7 @@ def pythonmonkey() {
     my_job = build job: 'monkey_python',
             parameters: [
                 string(name: 'BUILD_LABEL', value: "${MVTEST_SUITE} | ${MVTEST_GROUP} | ${MVTEST_TEST}"),
-                string(name: 'MVTEST_BRANCH', value: "${def_mvtest_branch}"),
+                string(name: 'MVTEST_BRANCH', value: "${MVTEST_BRANCH}"),
                 string(name: 'BUILD_LOCATION', value: "${BUILD_DIR}/${RHEL_VER}/${BUILD_DATE}/${pkg_name}"),
                 booleanParam(name: 'TCMS_TRACE', value: "${def_tcms_trace}"),
                 booleanParam(name: 'TCMS_DRY_RUN', value: "${def_tcms_dry_run}"),
