@@ -508,7 +508,11 @@ def tmuxfunctional() {
     MVTEST_SUITE = "${env.JOB_BASE_NAME}"
     MVTEST_GROUP = '[Nightly] Tmux functional test suite'
     MVTEST_TEST = 'allWorkflow'
-
+    def_tcms_trace = 'true'
+    def_tcms_upload = 'true'
+    def_user_pw = 'memverge'
+    def_mm_python_bin = '/memverge/automation/anaconda3/bin/python3'
+    def_jupyter_bin = '/memverge/automation/anaconda3/bin'
     my_job = build job: 'tmux_functional',
             propagate: false,
             parameters: [
@@ -551,7 +555,11 @@ def shellmonkey() {
     MVTEST_SUITE = "${env.JOB_BASE_NAME}"
     MVTEST_GROUP = '[Nightly] Shell monkey test suite'
     MVTEST_TEST = 'all'
-    my_job = ''
+    def_tcms_trace = 'true'
+    def_tcms_upload = 'true'
+    def_user_pw = 'memverge'
+    def_mm_python_bin = '/memverge/automation/anaconda3/bin/python3'
+    def_jupyter_bin = '/memverge/automation/anaconda3/bin'
 
     my_job = build job: 'monkey_shell',
             parameters: [
@@ -590,7 +598,11 @@ def pythonmonkey() {
     MVTEST_SUITE = "${env.JOB_BASE_NAME}"
     MVTEST_GROUP = '[Nightly] Python monkey test suite'
     MVTEST_TEST = 'basicWorkflow'
-    my_job = ''
+    def_tcms_trace = 'true'
+    def_tcms_upload = 'true'
+    def_user_pw = 'memverge'
+    def_mm_python_bin = '/memverge/automation/anaconda3/bin/python3'
+    def_jupyter_bin = '/memverge/automation/anaconda3/bin'
 
     my_job = build job: 'monkey_python',
             parameters: [
