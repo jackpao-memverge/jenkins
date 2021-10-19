@@ -442,7 +442,7 @@ def test_export_import(list) {
 def hazelcastcluster() {
     b4 = build job: 'hazelcastcluster', parameters: [string(name: 'BUILD_LABEL', value: 'snapshot test'),
     string(name: 'TEST_SUITE', value: 'clusterPidns'), string(name: 'HOSTS_DAX_MAP', value: "${HOSTS_DAX_MAP}"),
-    string(name: 'BUILD_LOCATION', value: "${BUILD_DIR}/rhel8/${BUILD_DATE}/${pkg_name}"),
+    string(name: 'BUILD_LOCATION', value: "${BUILD_DIR}/${RHEL_VER}/${BUILD_DATE}/${pkg_name}"),
     string(name: 'NUM_MEMBERS', value: ''), string(name: 'NUM_WORKERS', value: ''), string(name: 'NUM_RECORDS', value: ''),
     string(name: 'STEP_SIZE', value: ''), string(name: 'USER_PW', value: 'memverge'),
     string(name: 'MM_PYTHON_BIN', value: '/memverge/automation/anaconda3/bin/python3'), string(name: 'JUPYTER_BIN', value: '/memverge/automation/anaconda3/bin'),
