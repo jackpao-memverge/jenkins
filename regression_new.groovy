@@ -11,7 +11,7 @@
 //     "run_export_import_kdb_wide_test_remote",
 //     "redis_deep_snapshot_test_with_export"
 // ]
-mvmcli_tests = ["allMvmcliWorkFlows"]
+mvmcli_tests = ["all"]
 snapshot_tests = ['redis_deep_snapshot_test', 'redis_wide_snapshot_test',
 'run_redis_snapshot_functional_test',
 'snapshot_with_load_in_bg_test']
