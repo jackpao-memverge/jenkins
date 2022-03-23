@@ -504,11 +504,13 @@ def snapshot_suite_all_mm_bin(list) {
                kx_home = "/memverge/automation/KX/l64"
                num_server = 10
                db_per_server = 1
+               node_worker = "ubuntu_204"
            }else{
                skip_numa = true
                kx_home = "/memverge/automation/KX_MISSIONB/l64"
                num_server = 5
                db_per_server = 10
+               node_worker = "jack_worker"
            }           
            b1 = build job: "ubuntu-pipeline_mvmalloc_nightly_test", propagate: false, parameters: [string(name: "BUILD_LABEL", value: "Nightly regression ${list[i]}"),
            string(name: "HOSTS_DAX_MAP", value:  "${HOSTS_DAX_MAP}"),
