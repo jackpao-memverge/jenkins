@@ -189,7 +189,7 @@ def snapshot_suite_all(list) {
                kx_home = "/memverge/automation/KX/l64"
                num_server = 5
                db_per_server = 1
-               node_worker = "ubuntu"
+               node_worker = "ubuntu_204"
            }else{
                skip_numa = true
                kx_home = "/memverge/automation/KX_MISSIONB/l64"
@@ -237,7 +237,7 @@ def snapshot_suite_all_huge(list) {
                kx_home = "/memverge/automation/KX/l64"
                num_server = 5
                db_per_server = 1
-               node_worker = "ubuntu"
+               node_worker = "ubuntu_204"
            }else{
                skip_numa = true
                kx_home = "/memverge/automation/KX_MISSIONB/l64"
@@ -287,7 +287,7 @@ def snapshot_suite_all_regular(list) {
                kx_home = "/memverge/automation/KX/l64"
                num_server = 5
                db_per_server = 1
-               node_worker = "ubuntu"
+               node_worker = "ubuntu_204"
            }else{
                skip_numa = true
                kx_home = "/memverge/automation/KX_MISSIONB/l64"
@@ -336,7 +336,7 @@ def snapshot_suite_all_mvsnapd(list) {
                kx_home = "/memverge/automation/KX/l64"
                num_server = 5
                db_per_server = 1
-               node_worker = "ubuntu"
+               node_worker = "ubuntu_204"
            }else{
                skip_numa = true
                kx_home = "/memverge/automation/KX_MISSIONB/l64"
