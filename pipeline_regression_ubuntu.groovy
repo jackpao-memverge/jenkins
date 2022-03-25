@@ -439,7 +439,7 @@ def test_export_import(list){
         b3 = build job: "test_export_import", propagate: false, parameters: [string(name: "BUILD_LABEL", value: "Nightly regression ${list[i]}"), 
         string(name: "HOSTS_DAX_MAP", value:  "${HOSTS_DAX_MAP}"), 
         string(name: "MV_TESTS", value: "${list[i]}"), string(name: "USER_PW", value: "memverge"), 
-        string(name: "NUMBER_SERVER", value: "5"), string(name: "DB_PER_SERVER", value: "5"), 
+        string(name: "NUMBER_SERVER", value: "3"), string(name: "DB_PER_SERVER", value: "1"), 
         string(name: "RECORD_PER_DB", value: "1000000"), 
         string(name: "BUILD_LOCATION", value: "${BUILD_LOCATION}"), 
         string(name: "SNAPSHOT_DEPTH", value: "3"), booleanParam(name: "SKIP_NUMA_CTL", value: true), 
