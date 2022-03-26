@@ -526,7 +526,8 @@ def snapshot_suite_all_mm_bin(list) {
            string(name: "MVTEST_BRANCH", value: "${MVTEST_BRANCH}"),
            string(name: "MM_INSTALL_BIN", value: "${mm_install_path}"),
            booleanParam(name: "TCMS_DRY_RUN", value: false), booleanParam(name: "TCMS_TRACE", value: false),
-           booleanParam(name: 'HugePageDram', value: false), booleanParam(name: 'RegularDram', value: true), string(name: 'DramCacheGB', value: '5')]
+           booleanParam(name: 'HugePageDram', value: false), booleanParam(name: 'RegularDram', value: true), string(name: 'DramCacheGB', value: '5'),
+           [$class: "LabelParameterValue", name: "node", label: "${node_worker}"]]
            try{
                 if(b1.result == 'FAILURE'|| b1.result == 'ABORTED') {
                 //if(b1.result == 'FAILURE') {
