@@ -1,4 +1,5 @@
 host_list = ["10.0.1.197=/dev/dax0.0,/dev/dax1.0"]
+
 failure_job_list = []
 success_job_list = []
 node ("cicd_vm") {
